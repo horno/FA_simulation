@@ -39,17 +39,32 @@ def read_file(file_name):
 
 def make_ft(ft):
     ft_dic = {}
-    for transition in ft:
-        
+    for transition in ft:        
         if transition[0] in ft_dic:
             ft_dic[transition[0]] = {transition[1]: ft_dic[transition[0]][transition[1]] + transition[2]}
         else:
-            ft_dic[transition[0]] = {transition[1]: transition[2]}
+            ft_dic[transition[0]] = [{transition[1]: transition[2]}]
 
-
-        # print(ft_dic[transition[0]][transition[1]])
+        # if transition[0] in ft_dic:
+        #     ft_dic[transition[0]].append[{transition[1]: transition[2]}]
+        # else:
+        #     ft_dic[transition[0]] = [{transition[1]: transition[2]}]
 
     print(ft_dic)
+
+
+
+
+    # for transition in ft:
+    #     if transition[0] in ft_dic:
+    #         if transition[1] in ft_dic[transition[0]]:
+    #             ft_dic[transition[0]] = ft_dic[transition[0]]+{transition[1]: transition[2]}
+    #         else:    
+    #             ft_dic[transition[0]] = {transition[1]: ft_dic[transition[0]][transition[1]] + transition[2]}
+    #     else:
+    #         ft_dic[transition[0]] = {transition[1]: transition[2]}
+
+
 
 def check_automata(a):
     for state in a.I:

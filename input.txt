@@ -1,5 +1,5 @@
 A,B,C
 a,b
-AaA,AaB,BbC,CbB,CbA,AbA
+AaA,AaB,BbC,CbB,CbA
 A
 B
