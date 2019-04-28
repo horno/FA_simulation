@@ -31,19 +31,21 @@ def read_file(file_name):
         line = line.rstrip('\n')
         plist.append(line)
 
-    ft_dic = make_ft(plist[2].split(","))
+    ft_dic = make_ft(plist[2].split(","), plist[0].split(","))
 
     a = Automata(plist[0].split(","),plist[1].split(","), ft_dic,
                  plist[3].split(","), plist[4].split(","), )
     return a
 
-def make_ft(ft):
-    ft_dic = {}
+def make_ft(ft, Q):
+    ft_dic = {}        
+    
+    for state in Q:
+        ft_dic[state] = []
+
     for transition in ft:        
-        if transition[0] in ft_dic:
-            ft_dic[transition[0]].append({transition[1]: transition[2]})
-        else:
-            ft_dic[transition[0]] = [{transition[1]: transition[2]}]
+        ft_dic[transition[0]].append((transition[1], transition[2]))
+    
     return ft_dic
 
 def check_automata(a):
@@ -58,8 +60,8 @@ def check_automata(a):
 
 def service_loop(a):
     quit = 0
-    print("Insereix una paraula que vulguis provar amb l'AF definit a " + filename)
-    print("Fes \"quit\" per marxar")
+    print("> Insereix una paraula que vulguis provar amb l'AF definit a " + filename)
+    print("> Fes \"quit\" per marxar")
 
     while quit != 1:
         line = sys.stdin.readline()
@@ -71,15 +73,35 @@ def service_loop(a):
 
 def check_word(line, a):
     if(not check_alph(line, a)):
-        print("Paraula no acceptada, lletra no pertany a l'alfabet")
-        exit(-3)
+        print("> Paraula no acceptada, lletra no pertany a l'alfabet")
+        exit(0)
     if not reach_end(line, a):
-        print("Paraula no acceptada per l'autòmat.")
-        exit(-3)
-    print("Praula " + line + " acceptada per l'autòmat.")
+        print("> Paraula no acceptada per l'autòmat.")
+        # exit(0)
+    else: 
+        print("> Praula " + line + " acceptada per l'autòmat.")
+        # exit(0)
 
-def reach_end(word, a):
-    return True
+def reach_end(word, a): #TODO: Aquí aniran tots els estats inicials
+    for init_state in a.I:
+        if reach_end_rec(init_state, word, a):
+            print("ARRIBA2")
+            return True
+    return False
+
+def reach_end_rec(state, word, a):
+    print(word)
+    if word == "":
+        if state in a.F:
+            print(a.F)
+            print("> Estat final: " + state)
+            print("ARRIBA1")
+            return True
+    else:
+        for direc in a.ft[state]:
+            if direc[0] == word[0]:
+                reach_end_rec(direc[1], word[1:], a)
+                    # return True
 
 def check_alph(word, a):
     for letter in word:
