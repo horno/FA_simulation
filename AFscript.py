@@ -31,28 +31,39 @@ def read_file(file_name):
         line = line.rstrip('\n')
         plist.append(line)
 
-    a = Automata(plist[0].split(","),plist[1].split(","), plist[2].split(","),
+    make_ft(plist[2].split(","))
+
+    a = Automata(plist[0].split(","),plist[1].split(","), plist[2].split(",") ,
                  plist[3].split(","), plist[4].split(","), )
     return a
+
+def make_ft(ft):
+    ft_dic = {}
+    for transition in ft:
+        
+        if transition[0] in ft_dic:
+            ft_dic[transition[0]] = {transition[1]: ft_dic[transition[0]][transition[1]] + transition[2]}
+        else:
+            ft_dic[transition[0]] = {transition[1]: transition[2]}
+
+
+        # print(ft_dic[transition[0]][transition[1]])
+
+    print(ft_dic)
 
 def check_automata(a):
     for state in a.I:
         if state not in a.Q:
             print(state + " no està a Q")
             exit(-2)
-    print("Tot I està a Q") 
     for state in a.F:
         if state not in a.Q:
             print(state + " no està a Q")
             exit(-2)
-    print("Tot F està a Q")
 
 if __name__ == "__main__":
     filename = get_filename()
-    read_file(filename)
-
     a = read_file(filename)
     check_automata(a)    
-
 
 
