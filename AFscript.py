@@ -4,6 +4,8 @@
 import sys
 import os
 
+stop = False
+
 class Automata:
     def __init__(self,Q,E,ft,I,F):
         self.Q = Q
@@ -73,35 +75,40 @@ def service_loop(a):
 
 def check_word(line, a):
     if(not check_alph(line, a)):
-        print("> Paraula no acceptada, lletra no pertany a l'alfabet")
-        exit(0)
-    if not reach_end(line, a):
-        print("> Paraula no acceptada per l'autòmat.")
+        print("> Praula \"" + line + "\" no acceptada, lletra no pertany a l'alfabet.")
+        # exit(0)
+    elif not reach_end(line, a):
+        print("> Praula \"" + line + "\" no acceptada per l'autòmat. :(")
         # exit(0)
     else: 
-        print("> Praula " + line + " acceptada per l'autòmat.")
+        print("> Praula \"" + line + "\" acceptada per l'autòmat. :)")
         # exit(0)
+    print("> Introdueix una nova paraula o fes \"quit\" per marxar. ")
+    global stop 
+    stop = False
 
 def reach_end(word, a): #TODO: Aquí aniran tots els estats inicials
     for init_state in a.I:
         if reach_end_rec(init_state, word, a):
-            print("ARRIBA2")
             return True
     return False
 
 def reach_end_rec(state, word, a):
-    print(word)
+    global stop
     if word == "":
         if state in a.F:
-            print(a.F)
             print("> Estat final: " + state)
-            print("ARRIBA1")
+            stop = True
             return True
-    else:
+    elif not stop:
+        found = False
         for direc in a.ft[state]:
-            if direc[0] == word[0]:
-                reach_end_rec(direc[1], word[1:], a)
-                    # return True
+            if direc[0] == word[0] and not stop:
+                print("("+state+","+word+")-->"+direc[1])
+                if reach_end_rec(direc[1], word[1:], a):
+                    found = True
+        if found:
+            return True
 
 def check_alph(word, a):
     for letter in word:
