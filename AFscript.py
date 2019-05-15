@@ -67,7 +67,9 @@ def service_loop(a):
         if line == "quit" or line == "quit\n":
             quit = 1
         elif line != "\n" and line != '':
+            print (a.ft)
             check_word(line, a)
+            
 
 def check_word(line, a):
     if(not check_alph(line, a)):
@@ -77,9 +79,22 @@ def check_word(line, a):
         print("Paraula no acceptada per l'autòmat.")
         exit(-3)
     print("Praula " + line + " acceptada per l'autòmat.")
+    exit(1)
 
 def reach_end(word, a):
-    return True
+    return call_reach_end(a.I,word,a)
+
+def  call_reach_end(states, word, a):
+    if not word and states in a.F:
+        return True
+    else:
+        for state in states:
+            print(state)
+            print(word)
+            for way in a.ft[state]:
+                if word and word[0] in way:
+                    return call_reach_end(way[word[0]],word[1:], a)
+        return False
 
 def check_alph(word, a):
     for letter in word:
@@ -92,5 +107,6 @@ if __name__ == "__main__":
     a = read_file(filename)
     check_automata(a)
     service_loop(a)
+    
 
 
