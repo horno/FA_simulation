@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 # Autors: Joaquim Picó Mora i Ian Palacín Aliana
 # coding=utf-8
 # encoding: utf-8
-#!/usr/bin/env python3
+
 import sys
 import os
 
