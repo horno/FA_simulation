@@ -28,18 +28,19 @@ Una vegada idicat l'autòmat. S'executa l'scrpit de python
 AFscript.py amb 1 paràmetre, el nom del fitxer on hi ha
 indicat l'autòmat. Per exemple, per utilitzar el programa
 amb l'exemple enviat, la comanda seria:
-python AFscript.py input.txt
+python AFscript.py input.txt.
 Una vegada executat, introduir les paraules que es vulguin
 comprobar o fer "quit" per sortir.
 
 ## Exemple enviat
-Entre els fitxers envits, hi ha un autòmat d'exemple a 
+Entre els fitxers adjunts, hi ha un autòmat d'exemple a 
 input.txt. Es tracta d'un autòmat que accepta qualsevol
 paraula formada per 1 i 0 que compleixi la condició de 
-tenir un 1 en la penúltima posició. Si es vol provar 
-aquest exemple, com s'ha dit anteriorment, executar
+tenir un 1 en la antepenúltima posició (3a començant pel final).
+Si es vol provar aquest exemple, com s'ha dit anteriorment, executar
 la comanda: 
+```
 python AFscript.py input.txt
-
+```
 
 Autors: Ian Palacín Aliana i Joaquim Picó Mora
